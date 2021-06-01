@@ -9,8 +9,6 @@ int buttonState = 0;         // variable for reading the pushbutton status
 bool ledState = false;
 bool ledState_y = true;
 unsigned long t0, t1, t, tmP;
-const float potM = 0.0048875855327468f;
-
 const unsigned long maxTime = 500UL;
 
 void setup() {
@@ -26,15 +24,12 @@ void loop()
   buttonState = digitalRead(buttonPin);
   //Serial.println(buttonState);
 
-  int potValue = analogRead(A0);
-  float vx = potValue * potM;
-
-  if (buttonState == HIGH)
+  if (buttonState == LOW)
   {
 
     Serial.println("Button pressed");
     t0 = millis();
-    while (digitalRead(buttonPin) == HIGH)
+    while (digitalRead(buttonPin) == LOW)
     {
       delay(10);
     }
@@ -56,6 +51,7 @@ void loop()
     }
 
   }
+  
   digitalWrite(ledPin, ledState ? HIGH : LOW);
   digitalWrite(ledYellow, ledState_y ? HIGH : LOW);
 }
